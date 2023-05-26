@@ -3,6 +3,8 @@
 import 'package:flutter/material.dart';
 import 'package:mysquad/model/background.dart';
 
+import '../controller/login_controller.dart';
+
 bool _switchNotificacaoPopUp = true;
 String _idiomaSelecionado = _idiomas[0];
 List<String> _idiomas = ['Português', 'Inglês'];
@@ -105,6 +107,17 @@ class _TelaConfigState extends State<TelaConfig> {
                       ]),
                 )
               ],
+            ),
+            ElevatedButton(
+              onPressed: () {
+                LoginController().logout();
+                Navigator.pushReplacementNamed(context, 'login');
+              },
+              style: ElevatedButton.styleFrom(
+                fixedSize: Size(300, 50),
+                backgroundColor: Color.fromRGBO(24, 76, 98, 1),
+              ),
+              child: Text('Sair'),
             ),
             Container(
               alignment: Alignment.topLeft,

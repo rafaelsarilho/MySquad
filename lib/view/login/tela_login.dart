@@ -3,6 +3,8 @@
 import 'package:flutter/material.dart';
 import 'package:mysquad/model/background.dart';
 
+import '../../controller/login_controller.dart';
+
 class TelaLogin extends StatefulWidget {
   const TelaLogin({Key? key}) : super(key: key);
 
@@ -11,6 +13,10 @@ class TelaLogin extends StatefulWidget {
 }
 
 class _TelaLoginState extends State<TelaLogin> {
+  var txtEmail = TextEditingController();
+  var txtSenha = TextEditingController();
+  var txtEmailEsqueceuSenha = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -92,6 +98,7 @@ class _TelaLoginState extends State<TelaLogin> {
                         width: 300,
                         height: 50,
                         child: TextField(
+                          controller: txtEmail,
                           style: TextStyle(
                               color: Color.fromRGBO(255, 255, 255, 1)),
                           decoration: InputDecoration(
@@ -118,6 +125,7 @@ class _TelaLoginState extends State<TelaLogin> {
                         width: 300,
                         height: 50,
                         child: TextField(
+                          controller: txtSenha,
                           obscureText: true,
                           style: TextStyle(
                               color: Color.fromRGBO(255, 255, 255, 1)),
@@ -143,7 +151,13 @@ class _TelaLoginState extends State<TelaLogin> {
                       //botão entrar
                       ElevatedButton(
                         onPressed: () {
-                          Navigator.pushNamed(context, 'cadastrojogo');
+                          // implementar login firebase
+                          LoginController().login(
+                            context,
+                            txtEmail.text,
+                            txtSenha.text,
+                          );
+                          //Navigator.pushNamed(context, 'cadastrojogo');
                         },
                         style: ElevatedButton.styleFrom(
                           fixedSize: Size(300, 50),

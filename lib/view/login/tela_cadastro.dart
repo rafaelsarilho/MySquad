@@ -3,6 +3,8 @@
 import 'package:flutter/material.dart';
 import 'package:mysquad/model/background.dart';
 
+import '../../controller/login_controller.dart';
+
 bool switchValue = false;
 
 class TelaCadastro extends StatefulWidget {
@@ -13,6 +15,11 @@ class TelaCadastro extends StatefulWidget {
 }
 
 class _TelaCadastroState extends State<TelaCadastro> {
+  var txtNome = TextEditingController();
+  var txtEmail = TextEditingController();
+  var txtSenha = TextEditingController();
+  var txtGenero = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -55,6 +62,7 @@ class _TelaCadastroState extends State<TelaCadastro> {
                       ),
                       SizedBox(height: 10),
                       TextField(
+                        controller: txtNome,
                         style:
                             TextStyle(color: Color.fromRGBO(255, 255, 255, 1)),
                         decoration: InputDecoration(
@@ -75,6 +83,7 @@ class _TelaCadastroState extends State<TelaCadastro> {
                       ),
                       SizedBox(height: 10),
                       TextField(
+                        controller: txtEmail,
                         style:
                             TextStyle(color: Color.fromRGBO(255, 255, 255, 1)),
                         decoration: InputDecoration(
@@ -95,6 +104,7 @@ class _TelaCadastroState extends State<TelaCadastro> {
                       ),
                       SizedBox(height: 10),
                       TextField(
+                        controller: txtSenha,
                         obscureText: true,
                         style:
                             TextStyle(color: Color.fromRGBO(255, 255, 255, 1)),
@@ -116,27 +126,7 @@ class _TelaCadastroState extends State<TelaCadastro> {
                       ),
                       SizedBox(height: 10),
                       TextField(
-                        obscureText: true,
-                        style:
-                            TextStyle(color: Color.fromRGBO(255, 255, 255, 1)),
-                        decoration: InputDecoration(
-                            labelText: 'Digite novamente sua senha',
-                            labelStyle: TextStyle(
-                                color: Color.fromRGBO(255, 255, 255, 0.5)),
-                            prefixIcon: Icon(
-                              Icons.password_outlined,
-                              color: Color.fromRGBO(255, 255, 255, 0.5),
-                            ),
-                            filled: true,
-                            fillColor: Color.fromRGBO(54, 73, 84, 1),
-                            border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(5),
-                                borderSide: BorderSide(
-                                  color: Color.fromRGBO(54, 73, 84, 1),
-                                ))),
-                      ),
-                      SizedBox(height: 10),
-                      TextField(
+                        controller: txtGenero,
                         style:
                             TextStyle(color: Color.fromRGBO(255, 255, 255, 1)),
                         decoration: InputDecoration(
@@ -187,7 +177,15 @@ class _TelaCadastroState extends State<TelaCadastro> {
                       ),
                       SizedBox(height: 10),
                       ElevatedButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          LoginController().criarConta(
+                            context,
+                            txtNome.text,
+                            txtEmail.text,
+                            txtSenha.text,
+                            txtGenero.text,
+                          );
+                        },
                         style: ElevatedButton.styleFrom(
                           fixedSize: Size(300, 50),
                           backgroundColor: Color.fromRGBO(136, 138, 210, 1),

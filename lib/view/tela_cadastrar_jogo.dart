@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
+import 'package:mysquad/controller/login_controller.dart';
 import 'package:mysquad/model/background.dart';
 
 bool switchValue = false;
@@ -13,6 +14,11 @@ class CadastrarJogo extends StatefulWidget {
 }
 
 class _CadastrarJogoState extends State<CadastrarJogo> {
+  var txtNick = TextEditingController();
+  var txtNivel = TextEditingController();
+  var txtElo = TextEditingController();
+  var txtInfo = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -57,6 +63,7 @@ class _CadastrarJogoState extends State<CadastrarJogo> {
                     children: [
                       //SizedBox(height: 10),
                       TextField(
+                        controller: txtNick,
                         style:
                             TextStyle(color: Color.fromRGBO(255, 255, 255, 1)),
                         decoration: InputDecoration(
@@ -77,6 +84,7 @@ class _CadastrarJogoState extends State<CadastrarJogo> {
                       ),
                       SizedBox(height: 10),
                       TextField(
+                        controller: txtNivel,
                         style:
                             TextStyle(color: Color.fromRGBO(255, 255, 255, 1)),
                         decoration: InputDecoration(
@@ -97,6 +105,7 @@ class _CadastrarJogoState extends State<CadastrarJogo> {
                       ),
                       SizedBox(height: 10),
                       TextField(
+                        controller: txtElo,
                         style:
                             TextStyle(color: Color.fromRGBO(255, 255, 255, 1)),
                         decoration: InputDecoration(
@@ -117,6 +126,7 @@ class _CadastrarJogoState extends State<CadastrarJogo> {
                       ),
                       SizedBox(height: 10),
                       TextField(
+                        controller: txtInfo,
                         maxLines: 2,
                         style:
                             TextStyle(color: Color.fromRGBO(255, 255, 255, 1)),
@@ -136,8 +146,13 @@ class _CadastrarJogoState extends State<CadastrarJogo> {
                       SizedBox(height: 10),
                       ElevatedButton(
                         onPressed: () {
-                          Navigator.pushNamedAndRemoveUntil(
-                              context, 'inicio', (route) => false);
+                          LoginController().dadosLol(
+                            context,
+                            txtNick.text,
+                            txtNivel.text,
+                            txtElo.text,
+                            txtInfo.text,
+                          );
                         },
                         style: ElevatedButton.styleFrom(
                           fixedSize: Size(300, 50),

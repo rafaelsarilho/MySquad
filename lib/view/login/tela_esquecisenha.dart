@@ -3,6 +3,8 @@
 import 'package:flutter/material.dart';
 import 'package:mysquad/model/background.dart';
 
+import '../../controller/login_controller.dart';
+
 bool switchValue = false;
 
 class TelaEsqueci extends StatefulWidget {
@@ -13,6 +15,9 @@ class TelaEsqueci extends StatefulWidget {
 }
 
 class _TelaEsqueciState extends State<TelaEsqueci> {
+  var txtEmail = TextEditingController();
+  var txtSenha = TextEditingController();
+  var txtEmailEsqueceuSenha = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -63,6 +68,7 @@ class _TelaEsqueciState extends State<TelaEsqueci> {
                         ),
                       ),
                       TextField(
+                        controller: txtEmailEsqueceuSenha,
                         style:
                             TextStyle(color: Color.fromRGBO(255, 255, 255, 1)),
                         decoration: InputDecoration(
@@ -82,36 +88,14 @@ class _TelaEsqueciState extends State<TelaEsqueci> {
                                 ))),
                       ),
                       SizedBox(height: 10),
-                      Container(
-                        padding: EdgeInsets.fromLTRB(5, 0, 5, 5),
-                        child: Text(
-                          'Digite abaixo o código recebido em seu e-mail para redefinir sua senha:',
-                          style: TextStyle(color: Colors.white),
-                          textAlign: TextAlign.center,
-                        ),
-                      ),
-                      TextField(
-                        style:
-                            TextStyle(color: Color.fromRGBO(255, 255, 255, 1)),
-                        decoration: InputDecoration(
-                            labelText: 'Código',
-                            labelStyle: TextStyle(
-                                color: Color.fromRGBO(255, 255, 255, 0.5)),
-                            prefixIcon: Icon(
-                              Icons.email,
-                              color: Color.fromRGBO(255, 255, 255, 0.5),
-                            ),
-                            filled: true,
-                            fillColor: Color.fromRGBO(54, 73, 84, 1),
-                            border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(5),
-                                borderSide: BorderSide(
-                                  color: Color.fromRGBO(54, 73, 84, 1),
-                                ))),
-                      ),
-                      SizedBox(height: 10),
                       ElevatedButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          //implementar esqueci senha
+                          LoginController().esqueceuSenha(
+                            context,
+                            txtEmailEsqueceuSenha.text,
+                          );
+                        },
                         style: ElevatedButton.styleFrom(
                           fixedSize: Size(300, 50),
                           backgroundColor: Color.fromRGBO(136, 138, 210, 1),
