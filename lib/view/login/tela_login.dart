@@ -19,6 +19,8 @@ class _TelaLoginState extends State<TelaLogin> {
 
   @override
   Widget build(BuildContext context) {
+    txtEmail.text = 'rafaelsarilho@hotmail.com';
+    txtSenha.text = '122096';
     return Scaffold(
       body: Stack(
         children: [

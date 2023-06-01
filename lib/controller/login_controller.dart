@@ -9,6 +9,7 @@ class LoginController {
   // Criação de um nova conta de usuário
   // no Firebase Authentication
   //
+
   criarConta(context, nome, email, senha, genero) {
     FirebaseAuth.instance
         .createUserWithEmailAndPassword(
@@ -50,7 +51,19 @@ class LoginController {
         .signInWithEmailAndPassword(email: email, password: senha)
         .then((resultado) {
       sucesso(context, 'Usuário autenticado com sucesso.');
-      Navigator.pushNamed(context, 'cadastrojogo');
+      FirebaseFirestore.instance
+          .collection('jogadores')
+          .where('uid', isEqualTo: resultado.user!.uid)
+          .get()
+          .then(
+        (jogador) {
+          if (jogador.size == 0) {
+            Navigator.pushNamed(context, 'cadastrojogo');
+          } else {
+            Navigator.pushNamed(context, 'inicio');
+          }
+        },
+      ).catchError((e) => print('ERRO: ${e.toString()}'));
     }).catchError((e) {
       switch (e.code) {
         case 'invalid-email':
