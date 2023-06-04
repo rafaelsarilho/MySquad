@@ -53,6 +53,7 @@ class _GruposInicioState extends State<GruposInicio> {
                         String id = dados.docs[index].id;
                         dynamic item = dados.docs[index].data();
                         return Card(
+                          color: Colors.transparent,
                           child: CustomContainer(
                             titulo: item['titulo'],
                             quantidade: item['quantidade'],
