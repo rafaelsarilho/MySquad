@@ -27,8 +27,7 @@ class grupoController {
   }
 
   listar() {
-    return FirebaseFirestore.instance
-        .collection('grupos')
-        .where('uid', isEqualTo: LoginController().idUsuario());
+    return FirebaseFirestore.instance.collection('grupos');
+    //.where('uid', isEqualTo: LoginController().idUsuario());
   }
 }
