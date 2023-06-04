@@ -2,10 +2,19 @@
 
 import 'package:flutter/material.dart';
 import 'package:mysquad/model/background.dart';
+import 'package:mysquad/view/util.dart';
 
 import '../../controller/login_controller.dart';
 
 bool switchValue = false;
+String _generoSelecionado = _generos[0];
+List<String> _generos = [
+  'Selecione',
+  'Masculino',
+  'Feminino',
+  'Outro',
+  'Prefiro não informar'
+];
 
 class TelaCadastro extends StatefulWidget {
   const TelaCadastro({Key? key}) : super(key: key);
@@ -109,82 +118,76 @@ class _TelaCadastroState extends State<TelaCadastro> {
                         style:
                             TextStyle(color: Color.fromRGBO(255, 255, 255, 1)),
                         decoration: InputDecoration(
-                            labelText: 'Senha',
-                            labelStyle: TextStyle(
-                                color: Color.fromRGBO(255, 255, 255, 0.5)),
-                            prefixIcon: Icon(
-                              Icons.password_outlined,
-                              color: Color.fromRGBO(255, 255, 255, 0.5),
-                            ),
-                            filled: true,
-                            fillColor: Color.fromRGBO(54, 73, 84, 1),
-                            border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(5),
-                                borderSide: BorderSide(
-                                  color: Color.fromRGBO(54, 73, 84, 1),
-                                ))),
-                      ),
-                      SizedBox(height: 10),
-                      TextField(
-                        controller: txtGenero,
-                        style:
-                            TextStyle(color: Color.fromRGBO(255, 255, 255, 1)),
-                        decoration: InputDecoration(
-                            labelText: 'Gênero',
-                            labelStyle: TextStyle(
-                                color: Color.fromRGBO(255, 255, 255, 0.5)),
-                            prefixIcon: Icon(
-                              Icons.person_3_outlined,
-                              color: Color.fromRGBO(255, 255, 255, 0.5),
-                            ),
-                            filled: true,
-                            fillColor: Color.fromRGBO(54, 73, 84, 1),
-                            border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(5),
-                                borderSide: BorderSide(
-                                  color: Color.fromRGBO(54, 73, 84, 1),
-                                ))),
-                      ),
-                      SizedBox(height: 10),
-                      Row(
-                        children: [
-                          SizedBox(
-                            width: MediaQuery.of(context).size.width * 0.4,
-                            child: Text(
-                              "Deseja informar sua localização aproximada?",
-                              style: TextStyle(color: Colors.white),
-                              softWrap: true,
+                          labelText: 'Senha',
+                          labelStyle: TextStyle(
+                              color: Color.fromRGBO(255, 255, 255, 0.5)),
+                          prefixIcon: Icon(
+                            Icons.password_outlined,
+                            color: Color.fromRGBO(255, 255, 255, 0.5),
+                          ),
+                          filled: true,
+                          fillColor: Color.fromRGBO(54, 73, 84, 1),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(5),
+                            borderSide: BorderSide(
+                              color: Color.fromRGBO(54, 73, 84, 1),
                             ),
                           ),
-                          SizedBox(
-                            width: 10,
-                          ),
-                          SizedBox(
-                            width: MediaQuery.of(context).size.width * 0.1,
-                            child: Switch(
-                              value: switchValue,
-                              activeColor: Color.fromRGBO(129, 131, 199, 1),
-                              inactiveThumbColor:
-                                  Color.fromRGBO(170, 122, 162, 1),
-                              onChanged: (value) {
+                        ),
+                      ),
+                      SizedBox(height: 10),
+                      Container(
+                        decoration: BoxDecoration(
+                          color: Color.fromRGBO(54, 73, 84, 1),
+                          borderRadius: BorderRadius.circular(5),
+                        ),
+                        child: Row(
+                          children: [
+                            SizedBox(width: 10),
+                            Text(
+                              "Gênero:",
+                              style: TextStyle(
+                                color: Color.fromRGBO(255, 255, 255, 0.5),
+                              ),
+                            ),
+                            SizedBox(width: 20),
+                            DropdownButton(
+                              dropdownColor: Color.fromRGBO(54, 73, 84, 0.8),
+                              underline: Container(),
+                              style: TextStyle(
+                                color: Colors.white,
+                              ),
+                              borderRadius: BorderRadius.circular(2),
+                              value: _generoSelecionado,
+                              items: _generos.map((genero) {
+                                return DropdownMenuItem(
+                                  child: Text(genero),
+                                  value: genero,
+                                );
+                              }).toList(),
+                              onChanged: (genero) {
                                 setState(() {
-                                  switchValue = value;
+                                  _generoSelecionado = genero!;
                                 });
                               },
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
-                      SizedBox(height: 10),
+                      SizedBox(height: 20),
                       ElevatedButton(
                         onPressed: () {
-                          LoginController().criarConta(
-                            context,
-                            txtNome.text,
-                            txtEmail.text,
-                            txtSenha.text,
-                            txtGenero.text,
-                          );
+                          if (_generoSelecionado != _generos[0]) {
+                            LoginController().criarConta(
+                              context,
+                              txtNome.text,
+                              txtEmail.text,
+                              txtSenha.text,
+                              _generoSelecionado,
+                            );
+                          } else {
+                            erro(context, "Selecione um gênero.");
+                          }
                         },
                         style: ElevatedButton.styleFrom(
                           fixedSize: Size(300, 50),
