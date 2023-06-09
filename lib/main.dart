@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors, unused_import, depend_on_referenced_packages
+// ignore_for_file: prefer_const_constructors, unused_import, depend_on_referenced_packages, deprecated_member_use
 
 //import 'dart:js';
 
@@ -8,7 +8,7 @@ import 'package:device_preview/device_preview.dart';
 import 'package:flutter/material.dart';
 import 'package:mysquad/model/navigation_bar.dart';
 import 'package:mysquad/view/login/tela_esquecisenha.dart';
-import 'package:mysquad/view/perfil.dart';
+import 'package:mysquad/view/tela_perfil.dart';
 import 'package:mysquad/view/tela_cadastrar_jogo.dart';
 import 'package:mysquad/view/tela_inicial.dart';
 import 'package:mysquad/view/tela_config.dart';
@@ -22,7 +22,7 @@ Future<void> main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
   runApp(DevicePreview(
-    enabled: false,
+    enabled: true,
     builder: (context) => MaterialApp(
       useInheritedMediaQuery: true,
       debugShowCheckedModeBanner: false,

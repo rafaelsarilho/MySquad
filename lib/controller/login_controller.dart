@@ -1,4 +1,4 @@
-// ignore_for_file: invalid_return_type_for_catch_error, avoid_print
+// ignore_for_file: invalid_return_type_for_catch_error, avoid_print, non_constant_identifier_names
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -137,5 +137,85 @@ class LoginController {
       'info': info,
     }).whenComplete(() =>
         Navigator.pushNamedAndRemoveUntil(context, 'inicio', (route) => false));
+  }
+
+  Future<String> EloJogador() async {
+    var elo = '';
+    await FirebaseFirestore.instance
+        .collection('jogadores')
+        .where('uid', isEqualTo: idUsuario())
+        .get()
+        .then(
+      (resultado) {
+        elo = resultado.docs[0].data()['elo'] ?? '';
+      },
+    );
+    return elo;
+  }
+
+  Future<String> NickJogador() async {
+    var nick = '';
+    await FirebaseFirestore.instance
+        .collection('jogadores')
+        .where('uid', isEqualTo: idUsuario())
+        .get()
+        .then(
+      (resultado) {
+        nick = resultado.docs[0].data()['nick'] ?? '';
+      },
+    );
+    return nick;
+  }
+
+  Future<String> GeneroJogador() async {
+    var genero = '';
+    await FirebaseFirestore.instance
+        .collection('usuarios')
+        .where('uid', isEqualTo: idUsuario())
+        .get()
+        .then(
+      (resultado) {
+        genero = resultado.docs[0].data()['genero'] ?? '';
+      },
+    );
+    return genero;
+  }
+
+    Future<String> InfoJogador() async {
+    var info = '';
+    await FirebaseFirestore.instance
+        .collection('jogadores')
+        .where('uid', isEqualTo: idUsuario())
+        .get()
+        .then(
+      (resultado) {
+        info = resultado.docs[0].data()['info'] ?? '';
+      },
+    );
+    return info;
+  }
+
+Future<void> atualizarNomeUsuario(String novoNome) async {
+    try {
+      final uid = idUsuario();
+
+      await FirebaseFirestore.instance
+          .collection('usuarios')
+          .where('uid', isEqualTo: uid)
+          .get()
+          .then((resultado) {
+        if (resultado.docs.isNotEmpty) {
+          final docId = resultado.docs[0].id;
+
+          FirebaseFirestore.instance
+              .collection('usuarios')
+              .doc(docId)
+              .update({'nome': novoNome});
+        }
+      });
+    } catch (error) {
+      // Trate o erro conforme sua necessidade
+      print('Erro ao atualizar o nome do usuário: $error');
+    }
   }
 }
