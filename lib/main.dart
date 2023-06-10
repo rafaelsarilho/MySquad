@@ -1,7 +1,5 @@
 // ignore_for_file: prefer_const_constructors, unused_import, depend_on_referenced_packages, deprecated_member_use
 
-//import 'dart:js';
-
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
 import 'package:device_preview/device_preview.dart';
@@ -18,6 +16,8 @@ import 'view/login/tela_login.dart';
 import 'view/login/tela_cadastro.dart';
 
 Future<void> main() async {
+  WidgetsFlutterBinding
+      .ensureInitialized(); // Garante a inicialização do Flutter
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
