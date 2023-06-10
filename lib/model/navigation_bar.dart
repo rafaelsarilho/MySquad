@@ -23,6 +23,7 @@ class _BottomNavigationViewState extends State<BottomNavigationView> {
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(40),
         child: AppBar(
+          automaticallyImplyLeading: false,
           backgroundColor: Color.fromRGBO(0, 53, 63, 1),
           title:
               Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
