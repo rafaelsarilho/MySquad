@@ -66,7 +66,10 @@ class _GruposInicioState extends State<GruposInicio> {
                     );
                   } else {
                     return Center(
-                      child: Text('Nenhuma grupo encontrado.'),
+                      child: Text(
+                        'Nenhuma grupo encontrado.',
+                        style: TextStyle(color: Colors.white),
+                      ),
                     );
                   }
               }

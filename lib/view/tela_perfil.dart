@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, sized_box_for_whitespace, non_constant_identifier_names
+// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, sized_box_for_whitespace, non_constant_identifier_names, unused_local_variable, no_leading_underscores_for_local_identifiers, sort_child_properties_last, use_build_context_synchronously
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -7,7 +7,6 @@ import 'package:mysquad/controller/perfil_controller.dart';
 import 'package:mysquad/model/background.dart';
 
 import '../controller/grupo_controller.dart';
-import '../model/grupo.dart';
 import '../model/perfil.dart';
 import 'container_grupos.dart';
 
@@ -314,7 +313,8 @@ class _TelaPerfilState extends State<TelaPerfil> {
                       );
                     } else {
                       return Center(
-                        child: Text('Nenhum grupo encontrado.'),
+                        child: Text('Nenhum grupo encontrado.',
+                        style: TextStyle(color: Colors.white),),
                       );
                     }
                   }
