@@ -28,6 +28,12 @@ class grupoController {
 
   listar() {
     return FirebaseFirestore.instance.collection('grupos');
-    //.where('uid', isEqualTo: LoginController().idUsuario());
+  }
+
+  meusgrupos() {
+    return FirebaseFirestore.instance
+        .collection('grupos')
+        .where('uid', isEqualTo: LoginController().idUsuario())
+        .orderBy('titulo', descending: false);
   }
 }
